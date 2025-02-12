@@ -1,0 +1,31 @@
+<div *ngIf="loading" class="loading-spinner">
+    <p>Loading...</p>
+  </div>
+  
+  <!-- Display All Items -->
+  <div *ngIf="!loading && items.length > 0">
+    <h2>All Items</h2>
+    <ul>
+      <li *ngFor="let item of items">
+        <h3>{{ item.name }}</h3>
+        <p>{{ item.description }}</p>
+        <button (click)="loadItemById(item.id)">View Item Details</button>
+      </li>
+    </ul>
+  </div>
+  
+  <!-- Display Single Item Details -->
+  <div *ngIf="item && !loading">
+    <h2>Item Details</h2>
+    <h3>{{ item.name }}</h3>
+    <p>{{ item.description }}</p>
+    <p><strong>Price:</strong> {{ item.price }}</p>
+    <p><strong>Category:</strong> {{ item.category?.name }}</p>
+    <button (click)="loadItems()">Back to Item List</button>
+  </div>
+  
+  <!-- No items found -->
+  <div *ngIf="!loading && items.length === 0">
+    <p>No items found.</p>
+  </div>
+  

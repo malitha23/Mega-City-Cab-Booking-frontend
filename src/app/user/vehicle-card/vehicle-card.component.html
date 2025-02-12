@@ -1,0 +1,25 @@
+<!-- <div class="card vehicle-card">
+    <div class="image-container">
+      <img [src]="vehicle.imageUrl" class="card-img-top" alt="{{ vehicle.name }}">
+      <div class="overlay">
+        <button class="btn btn-light btn-sm">View Details</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{ vehicle.name }}</h5>
+      <p class="card-text">🚗 Model: {{ vehicle.model }}</p>
+      <p class="card-text">💰 <strong>$ {{ vehicle.price }}/day</strong></p>
+      <button class="btn btn-primary w-100">Book Now</button>
+    </div>
+  </div>
+   -->
+   <div class="card" style="width: 18rem;">
+    <img class="card-img-top" [src]="vehicle.imageUrl" alt="Vehicle image">
+    <div class="card-body">
+      <h5 class="card-title">{{ vehicle.name }}</h5>
+      <p class="card-text">Model: {{ vehicle.model }}</p> <!-- Displaying Model -->
+      <p class="card-text">Price: ${{ vehicle.price }}</p> <!-- Displaying Price -->
+      <a href="#" class="btn btn-primary">Go Booking</a>
+    </div>
+  </div>
+  

@@ -27,7 +27,7 @@ export class SignupComponent {
     this.authService.signUp(signUpData).subscribe(
       (response) => {
         console.log(response);
-        if (response.message && response.message.includes("OTP has been sent")) {
+        if (response.message && response.message.includes("An OTP sent to your organization email")) {
           this.otpEmail = response.email; // Set the email from the response
           this.otpExpirationTime = response.expirationTime; // Set the expiration time from the response
           this.showOtpModal = true; // Show OTP modal

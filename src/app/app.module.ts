@@ -8,13 +8,36 @@ import { HttpClientModule } from '@angular/common/http';
 import { SigninComponent } from './signing/signing.component';
 import { SignupComponent } from './signiup/signiup.component';
 import { ForgotPasswordComponent } from './forgotpassword/forgotpassword.component';
-
+import { AddNewVehicleComponent } from './admin/add-new-vehicle/add-new-vehicle.component';
+import { ManageCategoryComponent } from './admin/manage-category/manage-category.component';
+import { CategoryService } from './services/CategoryService';
+import { ManageSubcategoryComponent } from './admin/manage-subcategory/manage-subcategory.component';
+import { SubCategoryService  } from './services/subcategoryServise';
+import { ListVehicleComponent } from './admin/list-vehicle/list-vehicle.component';
+import { HomepageComponent } from './user/homepage/homepage.component';
+import { NavbarComponent } from './user/navbar/navbar.component';
+import { SearchBarComponent } from './user/search-bar/search-bar.component';
+import { VehicleListComponent } from './user/vehicle-list/vehicle-list.component';
+import { VehicleCardComponent } from './user/vehicle-card/vehicle-card.component';
+import { FeaturedSectionComponent } from './user/featured-section/featured-section.component';
+import { FooterComponent } from './user/footer/footer.component';
 @NgModule({
   declarations: [
     AppComponent,
     SigninComponent,
     SignupComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    AddNewVehicleComponent,
+    ManageCategoryComponent,
+    ManageSubcategoryComponent,
+    ListVehicleComponent,
+    HomepageComponent,
+    NavbarComponent,
+    SearchBarComponent,
+    VehicleListComponent,
+    VehicleCardComponent,
+    FeaturedSectionComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +45,7 @@ import { ForgotPasswordComponent } from './forgotpassword/forgotpassword.compone
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [CategoryService, SubCategoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

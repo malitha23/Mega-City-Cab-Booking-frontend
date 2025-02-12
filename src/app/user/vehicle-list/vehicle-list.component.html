@@ -1,0 +1,8 @@
+<div class="container">
+  <h2 class="text-center mt-4">Available Vehicles</h2>
+  <div class="row">
+    <div class="col-md-3 mb-4" *ngFor="let vehicle of vehicles">
+      <app-vehicle-card [vehicle]="vehicle"></app-vehicle-card>
+    </div>
+  </div>
+</div>

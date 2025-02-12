@@ -1,0 +1,10 @@
+<form (ngSubmit)="onSubmit()" enctype="multipart/form-data" >
+    <div>
+      <label for="file">Select File</label>
+      <input type="file" id="file" (change)="onFileChange($event)" />
+    </div>
+  
+    <button type="submit">Submit</button>
+  </form>
+  
+  <app-list-vehicle></app-list-vehicle>

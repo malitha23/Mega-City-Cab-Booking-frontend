@@ -1,0 +1,18 @@
+<div class="category-list">
+    <h2>Categories</h2>
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  
+    <div class="category-form">
+      <input [(ngModel)]="newCategoryName" placeholder="New Category Name" />
+      <button (click)="addCategory()">Add Category</button>
+    </div>
+  
+    <ul>
+      <li *ngFor="let category of categories">
+        <span>{{ category.name }}</span>
+        <button (click)="updateCategory(category.id, 'Updated Name')">Update</button>
+        <button (click)="deleteCategory(category.id)">Delete</button>
+      </li>
+    </ul>
+  </div>
+  
