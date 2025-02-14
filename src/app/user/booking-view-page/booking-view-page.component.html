@@ -1,0 +1,78 @@
+<div *ngIf="loading" class="loading-spinner">
+    <p>Loading...</p>
+</div>
+
+<div class="container">
+    <div class="item left">
+        <!-- Image -->
+        <div *ngIf="item.imageBlob">
+            <img [src]="'http://localhost:8080/api/blobs/fetch/' + item.imageBlob.uuid" alt="Item image"
+                class="item-image" />
+        </div>
+        <br>
+        <!-- Category Information -->
+        <div *ngIf="item.category" class="category-info">
+            <p><strong>{{ item.category.name }}</strong> - <span *ngIf="item.subCategory">{{ item.subCategory.name
+                    }}</span></p>
+        </div>
+        
+            <!-- Item Created/Modified By -->
+            <div *ngIf="item.createdBy" style="display: flex; flex-direction: row; gap: 10px;">
+                <p><strong>Owner:</strong></p> 
+                 <p>{{ item.createdBy.firstName }} {{ item.createdBy.lastName }} ({{ item.createdBy.email }})</p>
+             </div>
+ 
+             <!-- Created/Modified At -->
+             <div *ngIf="item.createdAt">
+                 <p><strong>Created At:</strong> {{ item.createdAt | date: 'yyyy-MM-dd HH:mm:ss' }}</p>
+             </div>
+    </div>
+    <div class="item right">
+        <div *ngIf="!loading && item">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h5>{{ item.name }}</h5>
+                <div *ngIf="item.tags && item.tags.length > 0" class="tags">
+                    <ul>
+                        <li *ngFor="let tag of item.tags">{{ tag.name }}</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <p class="description">{{ item.description }}</p>
+            <p><strong class="price">Rs {{ item.price }}</strong></p>
+
+            <!-- Availability Status -->
+            <p *ngIf="item.isBooked" class="status booked">This item is booked.</p>
+            <p *ngIf="!item.isBooked" class="status available">This item is available for booking.</p>
+
+            <!-- Additional Details -->
+            <div *ngIf="item.color">
+                <p><strong>Color:</strong> {{ item.color }}</p>
+            </div>
+            <div *ngIf="item.engineCapacity">
+                <p><strong>Engine Capacity:</strong> {{ item.engineCapacity }} cc</p>
+            </div>
+            <div *ngIf="item.fuelType">
+                <p><strong>Fuel Type:</strong> {{ item.fuelType }}</p>
+            </div>
+            <div *ngIf="item.fuelEfficiency">
+                <p><strong>Fuel Efficiency:</strong> {{ item.fuelEfficiency }} km/l</p>
+            </div>
+            <div *ngIf="item.transmission">
+                <p><strong>Transmission:</strong> {{ item.transmission }}</p>
+            </div>
+            <div *ngIf="item.yearOfManufacture">
+                <p><strong>Year of Manufacture:</strong> {{ item.yearOfManufacture }}</p>
+            </div>
+            <div *ngIf="item.licensePlate">
+                <p><strong>License Plate:</strong> {{ item.licensePlate }}</p>
+            </div>
+            <div *ngIf="item.luggageCapacity">
+                <p><strong>Luggage Capacity:</strong> {{ item.luggageCapacity }} kg</p>
+            </div>
+            <div *ngIf="item.mileage">
+                <p><strong>Mileage:</strong> {{ item.mileage }} km</p>
+            </div>
+        </div>
+    </div>
+</div>

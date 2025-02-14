@@ -1,6 +1,19 @@
 <div class="container">
   <h2 class="text-center mt-4">Available Vehicles</h2>
-  <div class="row">
+  <p class="text-center text-muted">
+    Browse our collection of top-quality vehicles, carefully selected to suit your needs.  
+    Choose your ride and book instantly!
+  </p>
+  <br>
+  <!-- Loader -->
+  <div *ngIf="loading" class="text-center mt-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="loader"></span>
+    </div>
+  </div>
+
+  <!-- Vehicle List -->
+  <div class="row" *ngIf="!loading">
     <div class="col-md-3 mb-4" *ngFor="let vehicle of vehicles">
       <app-vehicle-card [vehicle]="vehicle"></app-vehicle-card>
     </div>

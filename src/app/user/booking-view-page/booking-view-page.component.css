@@ -1,0 +1,137 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f1f1f1;
+    color: #333;
+}
+
+/* Container Styling */
+.container {
+    display: flex;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 1200px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    gap: 30px;
+}
+
+/* Flexbox Layout */
+.item {
+    flex: 1;
+}
+
+/* Image Styling */
+.item-image {
+    width: 80%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Header Styling */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+h5 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.description {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.price {
+    font-size: 1.5rem;
+    color: #FF4081;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* Category and Tags */
+.category-info {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.tags ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tags li {
+    background-color: #E1F5FE;
+    padding: 8px 15px;
+    margin: 5px;
+    border-radius: 25px;
+    color: #0288D1;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Status */
+.status {
+    font-size: 1.1rem;
+    margin-top: 10px;
+}
+
+.status.booked {
+    color: #F44336;
+    font-weight: bold;
+}
+
+.status.available {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+/* Additional Details */
+p strong {
+    color: #0288D1;
+    font-size: 1.1rem;
+}
+
+/* Created By */
+.created-by {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .item {
+        width: 100%;
+    }
+
+    .item-image {
+        max-width: 90%;
+        margin: 0 auto;
+    }
+}
+
+.loading-spinner {
+    text-align: center;
+    padding: 50px;
+    font-size: 1.5rem;
+    color: #888;
+}

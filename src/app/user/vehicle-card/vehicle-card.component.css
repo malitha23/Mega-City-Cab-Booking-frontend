@@ -1,7 +1,104 @@
-.vehicle-card {
-    transition: transform 0.2s ease-in-out;
+/* Vehicle Card */
+.card{
+  margin: auto;
+  transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+  /* Adding a light shadow */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;  /* Ensure full width in small screen */
+  margin-bottom: 20px; /* Space between cards */
+}
+
+/* Hover Effect */
+.card:hover {
+  transform: scale(1.05);
+  /* Darker shadow on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Card Image */
+.card-img-top {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Card Body */
+.card-body {
+  padding: 15px;
+}
+
+/* Primary Button */
+.btn-primary {
+  padding: 7px 10px;
+  font-size: 16px;
+  background-color: #375370;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  width: 100%;  /* Full width button */
+  margin-top: 10px;
+}
+
+/* Primary Button Hover */
+.btn-primary:hover {
+  background-color: #2c3e50;
+  cursor: pointer;
+}
+
+/* Responsive Layout */
+@media (min-width: 1200px) {
+  .card {
+    width: 18rem;  /* Fixed width for large screens */
   }
-  .vehicle-card:hover {
-    transform: scale(1.05);
+}
+
+@media (max-width: 1199px) and (min-width: 992px) {
+  .card {
+    width: 16rem;  /* Slightly smaller cards for medium screens */
   }
-  
+}
+
+@media (max-width: 991px) and (min-width: 768px) {
+  .card {
+    width: 14rem;  /* Smaller cards for tablet screens */
+  }
+}
+
+@media (max-width: 767px) {
+  .card {
+    width: 100%;  /* Full width for mobile screens */
+  }
+}
+
+/* Responsive grid layout */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center the items */
+}
+
+.col {
+  padding: 10px;
+  flex-basis: 23%; /* 4 cards per row for large screens */
+}
+
+@media (max-width: 1199px) {
+  .col {
+    flex-basis: 30%; /* 3 cards per row for medium screens */
+  }
+}
+
+@media (max-width: 767px) {
+  .col {
+    flex-basis: 45%; /* 2 cards per row for small screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .col {
+    flex-basis: 100%; /* 1 card per row for extra small screens */
+  }
+  .card{
+    margin: auto;
+  }
+}

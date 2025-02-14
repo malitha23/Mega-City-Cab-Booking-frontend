@@ -21,6 +21,8 @@ import { VehicleListComponent } from './user/vehicle-list/vehicle-list.component
 import { VehicleCardComponent } from './user/vehicle-card/vehicle-card.component';
 import { FeaturedSectionComponent } from './user/featured-section/featured-section.component';
 import { FooterComponent } from './user/footer/footer.component';
+import { OurServicesComponent } from './user/our-services/our-services.component';
+import { BookingViewPageComponent } from './user/booking-view-page/booking-view-page.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +39,9 @@ import { FooterComponent } from './user/footer/footer.component';
     VehicleListComponent,
     VehicleCardComponent,
     FeaturedSectionComponent,
-    FooterComponent
+    FooterComponent,
+    OurServicesComponent,
+    BookingViewPageComponent
   ],
   imports: [
     BrowserModule,

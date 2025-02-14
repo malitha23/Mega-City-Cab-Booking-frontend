@@ -6,7 +6,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./vehicle-card.component.css']
 })
 export class VehicleCardComponent {
-  @Input() vehicle!: { 
+  @Input() vehicle!: {
+[x: string]: any; 
     imageUrl: string;
     name: string;
     model: string;
