@@ -1,0 +1,27 @@
+<p-dialog 
+  header="Login" 
+  [modal]="true" 
+  [(visible)]="visible" 
+  [style]="{ width: '30rem' }" 
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" 
+  [maximizable]="true">
+  
+  <!-- Login Form -->
+  <form (ngSubmit)="onSubmit()">
+    <div class="p-field">
+      <label for="username">Username</label>
+      <input id="username" type="text" pInputText [(ngModel)]="username" name="username" required />
+    </div>
+
+    <div class="p-field">
+      <label for="password">Password</label>
+      <input id="password" type="password" pInputText [(ngModel)]="password" name="password" required />
+    </div>
+
+    <div class="p-d-flex p-jc-between">
+      <button pButton type="submit" label="Login" icon="pi pi-sign-in" class="p-button-primary"></button>
+      <button pButton type="button" label="Cancel" icon="pi pi-times" class="p-button-secondary" (click)="cancel()"></button>
+    </div>
+  </form>
+  
+</p-dialog>

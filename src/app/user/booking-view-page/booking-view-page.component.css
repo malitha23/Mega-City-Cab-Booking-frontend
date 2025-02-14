@@ -15,6 +15,9 @@ body {
     max-width: 1200px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     gap: 30px;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: relative;
 }
 
 /* Flexbox Layout */
@@ -46,14 +49,14 @@ h5 {
 }
 
 .description {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #555;
     line-height: 1.6;
     margin-bottom: 15px;
 }
 
 .price {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     color: #FF4081;
     font-weight: 700;
     margin-bottom: 20px;
@@ -74,12 +77,12 @@ h5 {
 }
 
 .tags li {
-    background-color: #E1F5FE;
-    padding: 8px 15px;
+    background-color: #FF4081;
+    padding: 3px 15px;
     margin: 5px;
     border-radius: 25px;
-    color: #0288D1;
-    font-size: 0.9rem;
+    color: #375370;
+    font-size: 0.8rem;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -100,9 +103,9 @@ h5 {
 }
 
 /* Additional Details */
-p strong {
-    color: #0288D1;
-    font-size: 1.1rem;
+.left p strong {
+    color: #375370;
+    font-size: 1.0rem;
 }
 
 /* Created By */
@@ -111,6 +114,78 @@ p strong {
     flex-direction: column;
     margin-bottom: 20px;
 }
+
+.tag {
+    height: min-content;
+    width: 200px;
+    padding: 0.1rem;
+    rotate: -45deg;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 3.7%;
+    left: -5%;
+    font-weight: 600;
+}
+
+.tagLabel {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    user-select: none;
+    font-size: 12px;
+}
+
+.Alert-tag {
+    background-color: lightsalmon;
+    border: 2px solid lightcoral;
+}
+
+.booking-container {
+    display: flex;
+    justify-content: start;
+    /* Pushes elements to both sides */
+    align-items: center;
+    /* Vertically align */
+    width: 100%;
+    /* Ensures full width */
+    max-width: 800px;
+    /* Adjust for better layout */
+    margin: auto;
+    /* Centering */
+    padding: 10px 0;
+    gap: 50px;
+}
+
+.bookingNowButton {
+    background-color: #ff6600;
+    color: white;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: -15px;
+}
+
+.bookingNowButton:hover {
+    background-color: #375370;
+}
+
+/* Disabled Button */
+.disabled-button {
+    background-color: gray !important;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.created-date {
+    font-size: 14px;
+    color: #333;
+    float: right;
+}
+
+
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -134,4 +209,29 @@ p strong {
     padding: 50px;
     font-size: 1.5rem;
     color: #888;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* Two equal columns */
+    gap: 15px;
+    /* Space between columns */
+    max-width: 800px;
+    /* Adjust width as needed */
+    margin: auto;
+    /* Center align */
+    font-size: 16px;
+}
+
+.details-grid p strong {
+    font-size: 16px;
+}
+
+.details-grid div {
+    background: #f8f8f8;
+    /* Light background for contrast */
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }

@@ -23,6 +23,13 @@ import { FeaturedSectionComponent } from './user/featured-section/featured-secti
 import { FooterComponent } from './user/footer/footer.component';
 import { OurServicesComponent } from './user/our-services/our-services.component';
 import { BookingViewPageComponent } from './user/booking-view-page/booking-view-page.component';
+import { TimeAgoPipe } from './time-ago.pipe';
+import { QuickLoginComponent } from './user/quick-login/quick-login.component';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,13 +48,19 @@ import { BookingViewPageComponent } from './user/booking-view-page/booking-view-
     FeaturedSectionComponent,
     FooterComponent,
     OurServicesComponent,
-    BookingViewPageComponent
+    BookingViewPageComponent,
+    TimeAgoPipe,
+    QuickLoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ButtonModule,
+    DialogModule,
+    InputTextModule,
+    BrowserAnimationsModule
   ],
   providers: [CategoryService, SubCategoryService],
   bootstrap: [AppComponent]

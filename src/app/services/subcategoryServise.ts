@@ -11,7 +11,7 @@ import { SubCategory } from '../models/subcategory.model';
 export class SubCategoryService {
 
     private apiUrl = `${environment.apiUrl}/api/subcategories`;
-    private token = `eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsZ2htYWxpdGhAZ21haWwuY29tIiwiaWF0IjoxNzM5MzkwNTY2LCJleHAiOjE3Mzk0NzY5NjZ9.Ym1232kEs8m46BtkE1WH3mZCNPheaB3GqISbzImRyZo`; // Retrieve token from localStorage
+    private token = `eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsZ2htYWxpdGhAZ21haWwuY29tIiwiaWF0IjoxNzM5NTU4Mjg4LCJleHAiOjE3Mzk2NDQ2ODh9.hGyqYofcCLxpbqRgUGMvsmmozwAqn_-fOcLnxUibHQU`; // Retrieve token from localStorage
 
     constructor(private http: HttpClient) { }
 

@@ -1,0 +1,110 @@
+/* Style for the dialog container */
+p-dialog {
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Style for the dialog header */
+  p-dialog .p-dialog-header {
+    background-color: #375370;
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 8px 8px 0 0;
+  }
+  
+  /* Style for the dialog content */
+  p-dialog .p-dialog-content {
+    padding: 2rem;
+    font-size: 1rem;
+  }
+  
+  /* Form container styles */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  /* Style for the input fields */
+  .p-field {
+    margin-bottom: 0.5rem;
+  }
+  
+  .p-field label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .p-field input {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .p-field input:focus {
+    border-color: #375370;
+    outline: none;
+  }
+  
+  /* Style for buttons container */
+  .p-d-flex {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  
+  /* Style for submit button */
+  .p-button-primary {
+    background-color: #375370;
+    border-color: #375370;
+    color: white;
+    font-size: 1rem;
+    padding: 0.75rem;
+    border-radius: 4px;
+    width: 48%;
+  }
+  
+  .p-button-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+  
+  /* Style for cancel button */
+  .p-button-secondary {
+    background-color: #f44336;
+    border-color: #f44336;
+    color: white;
+    font-size: 1rem;
+    padding: 0.75rem;
+    border-radius: 4px;
+    width: 48%;
+  }
+  
+  .p-button-secondary:hover {
+    background-color: #d32f2f;
+    border-color: #d32f2f;
+  }
+  
+  /* Responsive Design for Mobile */
+  @media screen and (max-width: 575px) {
+    p-dialog {
+      width: 90vw;
+    }
+  
+    .p-field input {
+      padding: 0.5rem;
+    }
+  
+    .p-button-primary, .p-button-secondary {
+      width: 100%;
+      padding: 1rem;
+    }
+  }
+  

@@ -12,6 +12,11 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('tokenBooking');  // Returns true if a token exists
+  }
+
+
   signIn(credentials: { email: string, password: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/signin`, credentials);
   }
