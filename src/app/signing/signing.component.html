@@ -1,10 +1,42 @@
-<form (ngSubmit)="onSubmit()">
-    <label for="email">email:</label>
-    <input type="email" id="email" [(ngModel)]="email" name="email" required>
-  
-    <label for="password">Password:</label>
-    <input type="password" id="password" [(ngModel)]="password" name="password" required>
-  
-    <button type="submit">Sign In</button>
-  </form>
-  
+<div style="position: fixed; top: 10%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; margin: auto;">
+  <p-message *ngIf="responseMessage" 
+    [severity]="responseType" 
+    [text]="responseMessage"></p-message>
+</div>
+<body>
+  <div class="container">
+    <div class="bg"></div>
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+      <h2 class="heading">Login Here</h2>
+
+      <label for="email">Email: </label>
+      <input 
+        type="email" 
+        id="email" 
+        [(ngModel)]="email" 
+        name="email" 
+        #emailField="ngModel" 
+        required 
+        [class.invalid]="emailField.invalid && emailField.touched"
+      >
+      <!-- Show error message for invalid email -->
+      <span *ngIf="emailField.invalid && emailField.touched" class="error">Email is required and must be valid.</span>
+
+      <label for="password">Password: </label>
+      <input 
+        type="password" 
+        id="password" 
+        [(ngModel)]="password" 
+        name="password" 
+        #passwordField="ngModel" 
+        required
+        [class.invalid]="passwordField.invalid && passwordField.touched"
+      >
+      <!-- Show error message for invalid password -->
+      <span *ngIf="passwordField.invalid && passwordField.touched" class="error">Password is required.</span>
+
+      <button class="login-btn" type="submit" [disabled]="loginForm.invalid">Login</button>
+      <a href="/signup"><span class="register-btn">Don't have an account?</span></a>
+    </form>
+  </div>
+</body>

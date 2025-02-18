@@ -29,6 +29,9 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MessageModule } from 'primeng/message';
+import { DatePipe } from '@angular/common';
+
 
 @NgModule({
   declarations: [
@@ -60,9 +63,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ButtonModule,
     DialogModule,
     InputTextModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MessageModule
   ],
-  providers: [CategoryService, SubCategoryService],
+  providers: [CategoryService, SubCategoryService, DatePipe ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

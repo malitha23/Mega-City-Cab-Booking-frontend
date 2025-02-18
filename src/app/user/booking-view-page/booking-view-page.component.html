@@ -119,5 +119,26 @@
 
 <app-quick-login 
   [visible]="visible" 
-  (loginData)="onLoginDataReceived($event)">
+  (loginData)="onLoginDataReceived($event)" 
+  [responseMessage]="responseMessage" 
+  [responseType]="responseType">
 </app-quick-login>
+
+<div *ngIf="showOtpModal"  class="otp-modal">
+    <div class="otp-modal-content">
+      <h2>OTP Verification</h2>
+      <p>An OTP has been sent to your email: <strong>{{ otpEmail }}</strong></p>
+      <p>The OTP will expire at: <strong>{{ otpExpirationTime }}</strong></p>
+      
+      <!-- OTP Input -->
+      <input type="text" [(ngModel)]="otp" placeholder="Enter OTP" required>
+      
+      <!-- Verify Button (only enabled when OTP is entered) -->
+      <button (click)="verifyOtp()" [disabled]="!otp" class="btn-verify">Verify</button>
+      <button (click)="closeOtpModal()" class="btn-close">Close</button>
+      
+      <div *ngIf="successOtpMessage" class="success-message">
+        <p>{{ successOtpMessage }}</p>
+      </div>
+    </div>
+  </div>

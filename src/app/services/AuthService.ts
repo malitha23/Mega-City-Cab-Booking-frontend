@@ -16,6 +16,22 @@ export class AuthService {
     return !!localStorage.getItem('tokenBooking');  // Returns true if a token exists
   }
 
+  saveUserData(response: any): void {
+    // Store the token and user details in localStorage
+    localStorage.setItem('tokenBooking', response.accessToken);
+    localStorage.setItem('user', JSON.stringify(response.user));
+  }
+
+  // Get the user data from localStorage
+  getUserData(): any {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
+  }
+
+  // Get the stored token from localStorage
+  getToken(): string | null {
+    return localStorage.getItem('tokenBooking');
+  }
 
   signIn(credentials: { email: string, password: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/signin`, credentials);
@@ -39,5 +55,10 @@ export class AuthService {
 
   resetPassword(passwordData: { token: string, newPassword: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/reset-password`, passwordData);
+  }
+
+  logout(): void {
+    localStorage.removeItem('tokenBooking');
+    localStorage.removeItem('user');
   }
 }

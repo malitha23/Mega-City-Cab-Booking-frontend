@@ -1,27 +1,70 @@
 <p-dialog 
-  header="Login" 
+  [header]="isRegistering ? 'Register' : 'Login'" 
   [modal]="true" 
   [(visible)]="visible" 
   [style]="{ width: '30rem' }" 
   [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" 
   [maximizable]="true">
-  
+  <p-message *ngIf="responseMessage" [severity]="responseType" [text]="responseMessage"></p-message>
   <!-- Login Form -->
-  <form (ngSubmit)="onSubmit()">
+  <form *ngIf="!isRegistering" (ngSubmit)="onLogin()">
     <div class="p-field">
       <label for="username">Username</label>
-      <input id="username" type="text" pInputText [(ngModel)]="username" name="username" required />
+      <input id="username" type="text" pInputText [(ngModel)]="username" name="username" />
+      <span class="p-error" *ngIf="usernameTouched && !username">Username is required</span>
     </div>
 
     <div class="p-field">
       <label for="password">Password</label>
-      <input id="password" type="password" pInputText [(ngModel)]="password" name="password" required />
+      <input id="password" type="password" pInputText [(ngModel)]="password" name="password" />
+      <span class="p-error" *ngIf="passwordTouched && !password">Password is required</span>
     </div>
 
     <div class="p-d-flex p-jc-between">
       <button pButton type="submit" label="Login" icon="pi pi-sign-in" class="p-button-primary"></button>
       <button pButton type="button" label="Cancel" icon="pi pi-times" class="p-button-secondary" (click)="cancel()"></button>
     </div>
+
+    <p class="p-mt-3">Don't have an account? 
+      <a  (click)="isRegistering = true" style="color: blue; cursor: pointer;">Register</a>
+    </p>
   </form>
-  
+
+  <!-- Register Form -->
+  <form *ngIf="isRegistering" (ngSubmit)="onRegister()">
+    <div class="p-field">
+      <label for="firstname">First Name</label>
+      <input id="firstname" type="text" pInputText [(ngModel)]="firstname" name="firstname" />
+      <span class="p-error" *ngIf="firstnameTouched && !firstname">First Name is required</span>
+    </div>
+
+    <div class="p-field">
+      <label for="lastname">Last Name</label>
+      <input id="lastname" type="text" pInputText [(ngModel)]="lastname" name="lastname" />
+      <span class="p-error" *ngIf="lastnameTouched && !lastname">Last Name is required</span>
+    </div>
+
+    <div class="p-field">
+      <label for="email">Email</label>
+      <input id="email" type="email" pInputText [(ngModel)]="email" name="email" />
+      <span class="p-error" *ngIf="emailTouched && !email">Email is required</span>
+      <span class="p-error" *ngIf="emailTouched && email && !isEmailValid()">Invalid Email Address</span>
+    </div>
+
+    <div class="p-field">
+      <label for="registerPassword">Password</label>
+      <input id="registerPassword" type="password" pInputText [(ngModel)]="registerPassword" name="registerPassword" />
+      <span class="p-error" *ngIf="registerPasswordTouched && !registerPassword">Password is required</span>
+    </div>
+
+    <div class="p-d-flex p-jc-between">
+      <button pButton type="submit" label="Register" icon="pi pi-user-plus" class="p-button-primary"></button>
+      <button pButton type="button" label="Cancel" icon="pi pi-times" class="p-button-secondary" (click)="cancel()"></button>
+    </div>
+
+    <p class="p-mt-3">Already have an account? 
+      <a href="#" (click)="isRegistering = false" style="color: blue; cursor: pointer;">Login</a>
+    </p>
+  </form>
+
 </p-dialog>

@@ -20,23 +20,65 @@ export class SignupComponent {
   isOtpVerified: boolean = false; // Tracks whether the OTP is verified
   successOtpMessage: string = ''; 
 
+  responseMessage: string = '';
+  responseType: 'success' | 'error' | undefined = undefined;
+  
   constructor(private authService: AuthService, private router: Router) {}
 
-  onSubmit() {
+  onSubmit(form: any) {
+
+    if (!this.firstName) {
+      form.controls.firstName.markAsTouched();
+    }
+
+    if (!this.lastName) {
+      form.controls.lastName.markAsTouched();
+    }
+
+    if (!this.email) {
+      form.controls.email.markAsTouched();
+    }
+    if (form.controls.email.invalid) {
+      form.controls.email.markAsTouched();
+    }
+    if (!this.password) {
+      form.controls.password.markAsTouched();
+    }
+
+    if (form.valid) {
     const signUpData = { email: this.email, password: this.password, firstName: this.firstName, lastName: this.lastName };
     this.authService.signUp(signUpData).subscribe(
       (response) => {
-        console.log(response);
-        if (response.message && response.message.includes("An OTP sent to your organization email")) {
-          this.otpEmail = response.email; // Set the email from the response
-          this.otpExpirationTime = response.expirationTime; // Set the expiration time from the response
-          this.showOtpModal = true; // Show OTP modal
-        }
+        this.authService.saveUserData(response);
+        this.responseMessage = response.message;
+        this.responseType = 'success';  // Adjust based on response
+        setTimeout(() => {
+          if (response.message && response.message.includes("An OTP sent to your organization email")) {
+            this.otpEmail = response.email; // Set the email from the response
+            this.otpExpirationTime = response.expirationTime; // Set the expiration time from the response
+            this.showOtpModal = true; // Show OTP modal
+          }
+        }, 2000); 
+      
+        
       },
       (error) => {
-        console.error('Error during sign up:', error);
+        this.responseMessage = error.message || 'An error occurred';
+        this.responseType = 'error';  // Adjust based on error
+        setTimeout(() => {
+          this.responseMessage = '';
+          this.responseType = undefined;
+        }, 3000); 
       }
     );
+  } else {
+    this.responseMessage = 'Please fill in all fields.';
+    this.responseType = 'error';
+    setTimeout(() => {
+      this.responseMessage = '';
+      this.responseType = undefined;
+    }, 3000); 
+  }
   }
 
   closeOtpModal() {
@@ -57,18 +99,29 @@ export class SignupComponent {
             console.log('OTP verified successfully:', response);
             this.isOtpVerified = true; // Mark OTP as verified
             this.successOtpMessage = response.message; // Set the success message
-  
-            // After displaying the success message, navigate to the sign-in page after a delay
+            this.responseMessage = response.message;
+            this.responseType = 'success';  // Adjust based on response
             setTimeout(() => {
-              this.router.navigate(['/signin']); // Navigate to the sign-in page
-            }, 2000); // Adjust the delay if needed
+              this.router.navigate(['/']);
+            }, 2000); 
           } else {
             // Handle other response statuses if needed
             console.error('OTP verification failed:', response);
+            this.responseMessage = 'OTP verification failed';
+            this.responseType = 'error';  // Adjust based on error
+            setTimeout(() => {
+              this.responseMessage = '';
+              this.responseType = undefined;
+            }, 3000); 
           }
         },
         (error) => {
-          console.error('Error during OTP verification:', error);
+          this.responseMessage = error.message || 'An error occurred';
+          this.responseType = 'error';  // Adjust based on error
+          setTimeout(() => {
+            this.responseMessage = '';
+            this.responseType = undefined;
+          }, 3000); 
         }
       );
     }
