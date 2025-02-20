@@ -34,7 +34,7 @@ export class SigninComponent {
             this.responseMessage = response.message;
             this.responseType = 'success';  // Adjust based on response
             setTimeout(() => {
-              this.router.navigate(['/']);
+              this.router.navigate(['/userProfile']);
             }, 2000); 
           },
           error => {

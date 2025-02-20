@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/AuthService';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-signiup',
@@ -14,8 +15,8 @@ export class SignupComponent {
   firstName: string = '';
   lastName: string = '';
   showOtpModal: boolean = false;
-  otpEmail: string = '';
-  otpExpirationTime: string = '';
+  otpEmail: string = ''; 
+  otpExpirationTime: any;
   otp: string = ''; // Holds the OTP entered by the user
   isOtpVerified: boolean = false; // Tracks whether the OTP is verified
   successOtpMessage: string = ''; 
@@ -23,7 +24,7 @@ export class SignupComponent {
   responseMessage: string = '';
   responseType: 'success' | 'error' | undefined = undefined;
   
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private datePipe: DatePipe) {}
 
   onSubmit(form: any) {
 
@@ -49,13 +50,14 @@ export class SignupComponent {
     const signUpData = { email: this.email, password: this.password, firstName: this.firstName, lastName: this.lastName };
     this.authService.signUp(signUpData).subscribe(
       (response) => {
+        console.log(response);
         this.authService.saveUserData(response);
         this.responseMessage = response.message;
         this.responseType = 'success';  // Adjust based on response
         setTimeout(() => {
-          if (response.message && response.message.includes("An OTP sent to your organization email")) {
-            this.otpEmail = response.email; // Set the email from the response
-            this.otpExpirationTime = response.expirationTime; // Set the expiration time from the response
+          if (response.message && response.message.includes("An OTP has been sent to your organization email")) {
+            this.otpEmail = response.user.email; // Set the email from the response
+            this.otpExpirationTime = this.datePipe.transform(response?.expirationTime, 'yyyy-MM-dd HH:mm:ss');
             this.showOtpModal = true; // Show OTP modal
           }
         }, 2000); 
@@ -102,7 +104,7 @@ export class SignupComponent {
             this.responseMessage = response.message;
             this.responseType = 'success';  // Adjust based on response
             setTimeout(() => {
-              this.router.navigate(['/']);
+              this.router.navigate(['/userProfile']);
             }, 2000); 
           } else {
             // Handle other response statuses if needed

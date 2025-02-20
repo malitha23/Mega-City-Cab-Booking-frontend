@@ -31,6 +31,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MessageModule } from 'primeng/message';
 import { DatePipe } from '@angular/common';
+import { UserProfilePageComponent } from './user/user-profile-page/user-profile-page.component';
+import { BookingModalComponent } from './user/booking/booking-modal/booking-modal.component';
 
 
 @NgModule({
@@ -53,7 +55,9 @@ import { DatePipe } from '@angular/common';
     OurServicesComponent,
     BookingViewPageComponent,
     TimeAgoPipe,
-    QuickLoginComponent
+    QuickLoginComponent,
+    UserProfilePageComponent,
+    BookingModalComponent
   ],
   imports: [
     BrowserModule,

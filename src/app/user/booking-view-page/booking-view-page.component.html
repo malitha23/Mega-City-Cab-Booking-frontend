@@ -45,7 +45,8 @@
                 <div *ngIf="item.defaultTaxRate > 0.0; else checkAdditionalTax" >
                     <p>
                         <strong class="price">
-                            Rs {{ (item.price / 100) * item.defaultTaxRate }} <span style="color: #375370;">for {{ item.defaultTaxDays }} days</span>
+                            Rs {{ getTotalPrice(item) }} 
+                            <span style="color: #375370;">for {{ item.defaultTaxDays }} days</span>
                         </strong>
                     </p>
                     <span *ngIf="item.additionalTaxRate > 0.0" style="font-size: 12px; color: red;">(
@@ -142,3 +143,5 @@
       </div>
     </div>
   </div>
+
+  <app-booking-modal #modal (bookingSubmitted)="handleBooking($event)"  [itemData]="item" ></app-booking-modal>

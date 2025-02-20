@@ -1,0 +1,50 @@
+<div class="modal-overlay" *ngIf="isModalOpen">
+    <div class="modalbooking">
+      <div class="modal-header">
+        <h3>New Booking</h3>
+        <button class="close-btn" (click)="closeModal()">✖</button>
+      </div>
+      <div class="modal-body">
+        <form #bookingForm="ngForm" (ngSubmit)="submitBooking()">
+          <div>
+            <label>Phone Number</label>
+            <input type="text" [(ngModel)]="booking.phone" name="phone" #phone="ngModel" placeholder="Enter phone number" required>
+            <div *ngIf="phone.invalid && phone.touched" class="error-message">Phone number is required.</div>
+          </div>
+  
+          <div>
+            <label>Destination</label>
+            <input type="text" [(ngModel)]="booking.destination" name="destination" #destination="ngModel" placeholder="Enter destination" required>
+            <div *ngIf="destination.invalid && destination.touched" class="error-message">Destination is required.</div>
+          </div>
+  
+          <div>
+            <label>NIC</label>
+            <input type="text" [(ngModel)]="booking.nic" name="nic" #nic="ngModel" placeholder="Enter NIC" required>
+            <div *ngIf="nic.invalid && nic.touched" class="error-message">NIC is required.</div>
+          </div>
+  
+          <div>
+            <label>Address</label>
+            <input type="text" [(ngModel)]="booking.address" name="address" #address="ngModel" placeholder="Enter address" required>
+            <div *ngIf="address.invalid && address.touched" class="error-message">Address is required.</div>
+          </div>
+  
+          <div>
+            <label>Days</label>
+            <input type="number" [(ngModel)]="booking.days" name="days" #days="ngModel" placeholder="Enter number of days" (ngModelChange)="onDaysChange()" required min="1">
+            <div *ngIf="days.invalid && days.touched" class="error-message">Number of days is required and must be greater than 0.</div>
+          </div>
+  
+          <div class="price-details">
+            <p>Base Price: Rs {{ getbaseprice() }}</p>
+            <p><strong>Total Price: </strong> Rs {{ booking.totalPrice }}</p>
+            <span *ngIf="additionalTaxMessage" style="font-size: 12px; color: red;">{{additionalTaxMessage}}</span>
+          </div>
+  
+          <button class="submit-btn" type="submit" >Book Now</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  

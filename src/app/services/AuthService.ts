@@ -60,5 +60,6 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('tokenBooking');
     localStorage.removeItem('user');
+    window.location.href = '/';
   }
 }

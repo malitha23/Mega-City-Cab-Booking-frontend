@@ -9,7 +9,7 @@ import { environment } from '../environments/environment'; // Make sure to have 
 })
 export class ItemService {
   private apiUrl = `${environment.apiUrl}/api/items`; // Base URL for all API requests
-  private token = `eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsZ2htYWxpdGhAZ21haWwuY29tIiwiaWF0IjoxNzM5NTU4Mjg4LCJleHAiOjE3Mzk2NDQ2ODh9.hGyqYofcCLxpbqRgUGMvsmmozwAqn_-fOcLnxUibHQU`; // Retrieve token from localStorage
+  private token = localStorage.getItem('tokenBooking');// Retrieve token from localStorage
 
   constructor(private http: HttpClient) {}
 

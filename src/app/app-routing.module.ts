@@ -8,12 +8,14 @@ import { ManageCategoryComponent } from './admin/manage-category/manage-category
 import { ManageSubcategoryComponent } from './admin/manage-subcategory/manage-subcategory.component'; 
 import { HomepageComponent } from './user/homepage/homepage.component'; 
 import { BookingViewPageComponent } from './user/booking-view-page/booking-view-page.component'; 
+import { UserProfilePageComponent } from './user/user-profile-page/user-profile-page.component'; 
 
 const routes: Routes = [
   { path: '', component: HomepageComponent }, // Default route (Homepage)
   { path: 'signin', component: SigninComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'userProfile', component: UserProfilePageComponent },
 
   { path: 'bookingViewPage/:id', component: BookingViewPageComponent },
   
