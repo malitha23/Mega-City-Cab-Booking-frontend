@@ -144,4 +144,4 @@
     </div>
   </div>
 
-  <app-booking-modal #modal (bookingSubmitted)="handleBooking($event)"  [itemData]="item" ></app-booking-modal>
+  <app-booking-modal #modal (bookingSubmitted)="handleBooking($event)"  [itemData]="item" [isBookingInProgress]="isBookingInProgress"  ></app-booking-modal>

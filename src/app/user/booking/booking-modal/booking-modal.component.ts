@@ -9,35 +9,53 @@ import Swal from 'sweetalert2';
 })
 export class BookingModalComponent {
   isModalOpen = false;
-  booking = { 
-    phone: '', 
-    destination: '', 
-    days: 0, 
-    price: 0, 
-    totalPrice: 0,
-    nic: '',  // Added NIC field
-    address: '' // Added Address field
-  };
   additionalTaxMessage: string = '';
+  vehicleId: number | undefined;
 
   // Input property to receive data from parent
   @Input() itemData: any = {};
+  @Input() isBookingInProgress: boolean = false;
 
   // Emit booking data to parent
   @Output() bookingSubmitted = new EventEmitter<any>();
+
+  booking = {
+    destination: '',
+    pickUpLocation: '',
+    bookingDate: '',
+    price: 0,
+    phone: '',
+    address: '',
+    nic: '',
+    days: 0,
+    totalPrice: 0,
+    status: 0,
+    vehicleId: this.itemData.id
+  };
+
+  comeResponse(){
+    
+  }
 
   // Show modal
   openModal() {
     console.log('Received itemData in Modal:', this.itemData);
 
-    // Set initial price
+    // Check if itemData is available before assigning vehicleId
+    if (this.itemData && this.itemData.id) {
+      this.vehicleId = this.itemData.id;
+      this.booking.vehicleId = this.itemData.id; // Assign vehicleId to the booking object
+    }
+
+    // Set initial price if itemData exists
     if (this.itemData) {
       this.booking.price = parseFloat(this.itemData.price) || 0;
-      this.calculateTotalPrice();  // Calculate total price based on default values
+      this.calculateTotalPrice(); // Calculate total price based on default values
     }
 
     this.isModalOpen = true;
   }
+
 
   // Close modal
   closeModal() {
@@ -84,34 +102,41 @@ export class BookingModalComponent {
   }
 
 
-submitBooking() {
-  // Check if required fields are filled
-  if (!this.booking.phone || !this.booking.destination || !this.booking.nic || !this.booking.address || this.booking.days <= 0) {
+  submitBooking() {
+    if (!this.booking.phone || !this.booking.destination || !this.booking.nic || !this.booking.address || this.booking.days <= 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Validation Error',
+        text: 'Please fill in all required fields.',
+        confirmButtonText: 'Ok'
+      });
+      return;
+    }
+
+    if (this.booking.phone.length !== 10 || isNaN(parseInt(this.booking.phone))) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Invalid Phone Number',
+        text: 'Please enter a valid 10-digit phone number.',
+        confirmButtonText: 'Ok'
+      });
+      return;
+    }
+
+    // Show loading alert
     Swal.fire({
-      icon: 'error',
-      title: 'Validation Error',
-      text: 'Please fill in all required fields.',
-      confirmButtonText: 'Ok'
+      title: 'Booking...',
+      text: 'Please wait while we process your booking.',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
     });
-    return;
+
+    this.isBookingInProgress = true; // Disable the button
+
+    this.bookingSubmitted.emit(this.booking);
   }
 
-  // Check if phone number length is exactly 10 digits
-  if (this.booking.phone.length !== 10 || isNaN(parseInt(this.booking.phone))) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Invalid Phone Number',
-      text: 'Please enter a valid 10-digit phone number.',
-      confirmButtonText: 'Ok'
-    });
-    return;
-  }
-
-  // Emit booking data to the parent component
-  this.bookingSubmitted.emit(this.booking);
-
-  // Close modal after submission
-  this.closeModal();
-}
 
 }

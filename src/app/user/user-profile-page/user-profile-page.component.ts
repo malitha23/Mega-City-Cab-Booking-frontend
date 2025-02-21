@@ -3,6 +3,7 @@ import { UserService } from '../../services/UserService';
 import { AuthService } from '../../services/AuthService';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { BookingService } from '../../services/BookingService';
 
 @Component({
   selector: 'app-user-profile-page',
@@ -14,10 +15,18 @@ export class UserProfilePageComponent {
   userData: any = {}; // Store user data
   loading: boolean = false;
   isEditing: boolean = false; // Track edit mode
-  selectedFile: File | null = null; 
+  selectedFile: File | null = null;
   imageUploadbtn: boolean = false;
 
-  constructor(private userService: UserService, private authService: AuthService, private router: Router) {}
+  pendingBookings: any[] = [];
+  approvedBookings: any[] = [];
+  rejectedBookings: any[] = [];
+  bookingDataFetchLoader: boolean = true;
+  selectedBooking: any;
+  visibleselectedbookingModal: boolean= false;
+
+
+  constructor(private userService: UserService, private authService: AuthService, private router: Router, private bookingService: BookingService) { }
 
   ngOnInit(): void {
     this.getUserData();
@@ -29,6 +38,7 @@ export class UserProfilePageComponent {
       (data: any) => {
         this.userData = data; // Assign response to userData
         this.loading = false;
+        this.getUserBookings();
       },
       (error) => {
         console.error('Error fetching user data', error);
@@ -41,7 +51,7 @@ export class UserProfilePageComponent {
         }).then(() => {
           this.authService.logout(); // Logout after user presses OK
         });
-        
+
       }
     );
   }
@@ -130,4 +140,31 @@ export class UserProfilePageComponent {
       }
     );
   }
+
+  getUserBookings(): void {
+    this.bookingService.getUserBookings().subscribe(
+      (data) => {
+        console.log(data);
+  
+        this.pendingBookings = data.filter((booking: any) => booking.status === 0);
+        this.approvedBookings = data.filter((booking: any) => booking.status === 1);
+        this.rejectedBookings = data.filter((booking: any) => booking.status === 2);
+  
+        console.log("Pending:", this.pendingBookings);
+        console.log("Approved:", this.approvedBookings);
+        console.log("Rejected:", this.rejectedBookings);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+
+  openModalToShowBookingData(booking: any): void {
+    this.selectedBooking = booking;  // Set the selected booking data
+  this.visibleselectedbookingModal = true;
+   
+  }
+  
+  
 }

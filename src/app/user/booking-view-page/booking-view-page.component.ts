@@ -4,7 +4,8 @@ import { ItemService } from '../../services/ItemService';
 import { AuthService } from '../../services/AuthService';
 import { DatePipe } from '@angular/common';
 import { BookingModalComponent } from '../booking/booking-modal/booking-modal.component';
-
+import { BookingService } from '../../services/BookingService';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-booking-view-page',
@@ -19,6 +20,7 @@ export class BookingViewPageComponent implements OnInit {
   password: string = '';
   responseMessage: string = '';
   responseType: 'success' | 'error' | undefined = undefined;
+  isBookingInProgress: boolean = false;
 
 
   isRegistering: boolean = false;
@@ -44,7 +46,8 @@ export class BookingViewPageComponent implements OnInit {
     private itemService: ItemService,
     private route: ActivatedRoute,
     private authService: AuthService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private bookingService: BookingService
   ) { }
 
   ngOnInit(): void {
@@ -166,15 +169,13 @@ export class BookingViewPageComponent implements OnInit {
   getTotalPrice(item: any): number {
     const basePrice = parseFloat(item.price) || 0;  // Fallback if price is missing
     const defaultTaxRate = item.defaultTaxRate || 0;  // Default tax rate (10% in this case)
-    
+
     // Calculate the base price plus the tax
-    let taxlPrice = ((basePrice/100) * defaultTaxRate);
+    let taxlPrice = ((basePrice / 100) * defaultTaxRate);
     const total = basePrice + taxlPrice;
     // Round the price to 2 decimal places and return
     return Math.round(total * 100) / 100;
-}
-
-  
+  }
 
   openModalBooking() {
     this.modal.openModal();
@@ -182,7 +183,44 @@ export class BookingViewPageComponent implements OnInit {
   }
 
   handleBooking(data: any) {
+    const bookingData = {
+      destination: data.destination,
+      pickUpLocation: data.pickUpLocation,
+      bookingDate: data.bookingDate,
+      price: data.price,
+      phone: data.phone,
+      address: data.address,
+      nic: data.nic,
+      days: data.days,
+      totalPrice: data.totalPrice,
+      vehicleId: data.vehicleId
+    };
     this.bookingDetails = data;
-    console.log("Received booking details:", data);
+
+    this.bookingService.createBooking(bookingData).subscribe(
+      (response) => {
+        console.log('Booking successful:', response);
+        this.isBookingInProgress = true;
+        // SweetAlert success notification
+        Swal.fire({
+          title: 'Booking Successful!',
+          text: 'Your booking has been created successfully.',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
+        this.modal.closeModal();
+      },
+      (error) => {
+        console.error('Booking failed:', error);
+        this.isBookingInProgress = true;
+        // SweetAlert error notification
+        Swal.fire({
+          title: 'Booking Failed!',
+          text: 'There was an error while creating your booking. Please try again later.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+      }
+    );
   }
 }

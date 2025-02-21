@@ -55,3 +55,45 @@ body{
 #firstname #lastname  #email{
   display: none;
 }
+
+.details-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem; /* Adds space between the left and right sides */
+  }
+  
+  .vehicle-details, .booking-details {
+    width: 48%; /* Ensures both columns take up equal space */
+  }
+  
+  h4 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  ul li {
+    margin-bottom: 8px;
+  }
+  
+  ul li strong {
+    font-weight: bold;
+    color: #555;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .details-container {
+      flex-direction: column; /* Stacks columns vertically on smaller screens */
+      gap: 1rem;
+    }
+  
+    .vehicle-details, .booking-details {
+      width: 100%; /* Ensures each column takes full width on small screens */
+    }
+  }
+  

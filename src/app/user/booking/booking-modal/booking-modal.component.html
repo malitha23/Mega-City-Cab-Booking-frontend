@@ -1,50 +1,72 @@
 <div class="modal-overlay" *ngIf="isModalOpen">
-    <div class="modalbooking">
-      <div class="modal-header">
-        <h3>New Booking</h3>
-        <button class="close-btn" (click)="closeModal()">✖</button>
-      </div>
-      <div class="modal-body">
-        <form #bookingForm="ngForm" (ngSubmit)="submitBooking()">
+  <div class="modalbooking">
+    <div class="modal-header">
+      <h3>New Booking</h3>
+      <button class="close-btn" (click)="closeModal()">✖</button>
+    </div>
+    <div class="modal-body">
+      <form #bookingForm="ngForm" (ngSubmit)="submitBooking()">
+        
+          <!-- Booking Date -->
           <div>
-            <label>Phone Number</label>
-            <input type="text" [(ngModel)]="booking.phone" name="phone" #phone="ngModel" placeholder="Enter phone number" required>
-            <div *ngIf="phone.invalid && phone.touched" class="error-message">Phone number is required.</div>
+            <label>Booking Date</label>
+            <input type="datetime-local" [(ngModel)]="booking.bookingDate" name="bookingDate" #bookingDate="ngModel" required>
+            <div *ngIf="bookingDate.invalid && bookingDate.touched" class="error-message">Booking date is required.</div>
           </div>
   
-          <div>
-            <label>Destination</label>
-            <input type="text" [(ngModel)]="booking.destination" name="destination" #destination="ngModel" placeholder="Enter destination" required>
-            <div *ngIf="destination.invalid && destination.touched" class="error-message">Destination is required.</div>
-          </div>
-  
-          <div>
-            <label>NIC</label>
-            <input type="text" [(ngModel)]="booking.nic" name="nic" #nic="ngModel" placeholder="Enter NIC" required>
-            <div *ngIf="nic.invalid && nic.touched" class="error-message">NIC is required.</div>
-          </div>
-  
-          <div>
-            <label>Address</label>
-            <input type="text" [(ngModel)]="booking.address" name="address" #address="ngModel" placeholder="Enter address" required>
-            <div *ngIf="address.invalid && address.touched" class="error-message">Address is required.</div>
-          </div>
-  
+          <!-- Days -->
           <div>
             <label>Days</label>
             <input type="number" [(ngModel)]="booking.days" name="days" #days="ngModel" placeholder="Enter number of days" (ngModelChange)="onDaysChange()" required min="1">
             <div *ngIf="days.invalid && days.touched" class="error-message">Number of days is required and must be greater than 0.</div>
           </div>
-  
-          <div class="price-details">
-            <p>Base Price: Rs {{ getbaseprice() }}</p>
-            <p><strong>Total Price: </strong> Rs {{ booking.totalPrice }}</p>
-            <span *ngIf="additionalTaxMessage" style="font-size: 12px; color: red;">{{additionalTaxMessage}}</span>
-          </div>
-  
-          <button class="submit-btn" type="submit" >Book Now</button>
-        </form>
-      </div>
+
+        <!-- Phone Number -->
+        <div>
+          <label>Phone Number</label>
+          <input type="text" [(ngModel)]="booking.phone" name="phone" #phone="ngModel" placeholder="Enter phone number" required>
+          <div *ngIf="phone.invalid && phone.touched" class="error-message">Phone number is required.</div>
+        </div>
+
+         <!-- PickUp Location -->
+         <div>
+          <label>PickUp Location</label>
+          <input type="text" [(ngModel)]="booking.pickUpLocation" name="pickUpLocation" #pickUpLocation="ngModel" placeholder="Enter pick-up location" required>
+          <div *ngIf="pickUpLocation.invalid && pickUpLocation.touched" class="error-message">Pick-up location is required.</div>
+        </div>
+        
+        <!-- Destination -->
+        <div>
+          <label>Destination</label>
+          <input type="text" [(ngModel)]="booking.destination" name="destination" #destination="ngModel" placeholder="Enter destination" required>
+          <div *ngIf="destination.invalid && destination.touched" class="error-message">Destination is required.</div>
+        </div>
+
+        <!-- NIC -->
+        <div>
+          <label>NIC</label>
+          <input type="text" [(ngModel)]="booking.nic" name="nic" #nic="ngModel" placeholder="Enter NIC" required>
+          <div *ngIf="nic.invalid && nic.touched" class="error-message">NIC is required.</div>
+        </div>
+
+        <!-- Address -->
+        <div>
+          <label>Address</label>
+          <input type="text" [(ngModel)]="booking.address" name="address" #address="ngModel" placeholder="Enter address" required>
+          <div *ngIf="address.invalid && address.touched" class="error-message">Address is required.</div>
+        </div>
+
+        <!-- Price Details -->
+        <div class="price-details">
+          <p>Base Price: Rs {{ getbaseprice() }}</p>
+          <p><strong>Total Price: </strong> Rs {{ booking.totalPrice }}</p>
+          <span *ngIf="additionalTaxMessage" style="font-size: 12px; color: red;">{{additionalTaxMessage}}</span>
+        </div>
+
+        <!-- Submit Button -->
+       <button class="submit-btn" type="submit" [disabled]="isBookingInProgress">Book Now</button>
+
+      </form>
     </div>
   </div>
-  
+</div>
