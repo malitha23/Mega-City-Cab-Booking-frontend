@@ -13,4 +13,9 @@ export class VehicleCardComponent {
     model: string;
     price: number;
   };
+
+  getFinalPrice(vehicle: any): number {
+    return Math.round(parseInt(vehicle.price) + (parseInt(vehicle.price) / 100) * vehicle['defaultTaxRate']);
+  }
+  
 }

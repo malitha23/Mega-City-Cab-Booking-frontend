@@ -1,5 +1,6 @@
 export const environment = {
     production: false,
-    apiUrl: 'http://localhost:8080' // Update with your backend URL
+    apiUrl: 'http://localhost:8080', // Update with your backend URL
+    imageLoadurl:'http://localhost:8080/api/blobs/fetch/'
   };
   

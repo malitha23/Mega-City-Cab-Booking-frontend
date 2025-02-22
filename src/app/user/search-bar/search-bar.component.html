@@ -1,10 +1,25 @@
 <div class="search-container">
-    <div class="background-image">
-      <div class="search-content">
-        <h2 class="search-title">Find Your Perfect Vehicle</h2>
-        <input type="text" class="form-control" placeholder="Search for a vehicle..." [(ngModel)]="searchText" />
-        <button class="btn btn-primary" (click)="searchVehicle()">Search</button>
-      </div>
+  <div class="background-image">
+    <div class="search-content">
+      <h2 class="search-title">Find Your Perfect Vehicle</h2>
+
+      <!-- Vehicle Type Dropdown -->
+      <select class="form-control" [(ngModel)]="selectedVehicleType" (change)="onVehicleTypeChange()">
+        <option value=""  selected>Select Vehicle Type</option>
+        <!-- Loop through categories to generate options dynamically -->
+        <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+      </select>
+
+      <!-- Brand Dropdown -->
+      <select class="form-control" [(ngModel)]="selectedBrand" [disabled]="!selectedVehicleType">
+        <option value=""  selected>Select Brand</option>
+        <option *ngFor="let subcategory of subCategories" [value]="subcategory.id">{{ subcategory.name }}</option>
+      </select>
+
+      <!-- Search Box -->
+      <input type="text" class="form-control" placeholder="Search for a vehicle..." [(ngModel)]="searchText" />
+
+      <button class="btn btn-primary" (click)="searchVehicle()">Search</button>
     </div>
   </div>
-  
+</div>

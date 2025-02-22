@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams  } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment'; // Make sure to have the correct API URL
 
@@ -16,6 +16,21 @@ export class ItemService {
   // Method to get all items
   getAllItems(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}`);
+  }
+
+  searchItems(name: string | null, category: string | null, subcategory: string | null): Observable<any> {
+    let params = new HttpParams();
+    if (name) {
+      params = params.append('name', name);
+    }
+    if (category) {
+      params = params.append('category', category);
+    }
+    if (subcategory) {
+      params = params.append('subcategory', subcategory);
+    }
+
+    return this.http.get(`${this.apiUrl}/search`, { params });
   }
 
   // Method to get an item by ID

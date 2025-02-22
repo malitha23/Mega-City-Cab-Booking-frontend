@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
-<app-search-bar></app-search-bar>
-<app-vehicle-list></app-vehicle-list>
+<app-search-bar (searchCompleted)="onSearchCompleted($event)"></app-search-bar>
+<app-vehicle-list #vehicleList [vehicles]="vehicles"></app-vehicle-list>
 <app-featured-section></app-featured-section>
 <app-our-services></app-our-services>
 <app-footer></app-footer>

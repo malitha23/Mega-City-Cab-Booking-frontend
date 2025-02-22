@@ -28,4 +28,12 @@ export class BookingService {
 
         return this.http.get<any>(`${this.apiUrl}/user`, { headers });
     }
+
+    deleteBooking(bookingId: number): Observable<any> {
+        const headers = new HttpHeaders({
+          Authorization: `Bearer ${this.token}`, // Bearer token from localStorage
+        });
+    
+        return this.http.delete<any>(`${this.apiUrl}/delete/${bookingId}`, { headers });
+      }
 }

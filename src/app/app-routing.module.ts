@@ -9,6 +9,7 @@ import { ManageSubcategoryComponent } from './admin/manage-subcategory/manage-su
 import { HomepageComponent } from './user/homepage/homepage.component'; 
 import { BookingViewPageComponent } from './user/booking-view-page/booking-view-page.component'; 
 import { UserProfilePageComponent } from './user/user-profile-page/user-profile-page.component'; 
+import { VehicleListComponent } from './user/vehicle-list/vehicle-list.component'; 
 
 const routes: Routes = [
   { path: '', component: HomepageComponent }, // Default route (Homepage)
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'userProfile', component: UserProfilePageComponent },
+  { path: 'listing', component: VehicleListComponent },
 
   { path: 'bookingViewPage/:id', component: BookingViewPageComponent },
   

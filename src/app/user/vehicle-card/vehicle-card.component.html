@@ -1,28 +1,27 @@
-<!-- <div class="card vehicle-card">
-    <div class="image-container">
-      <img [src]="vehicle.imageUrl" class="card-img-top" alt="{{ vehicle.name }}">
-      <div class="overlay">
-        <button class="btn btn-light btn-sm">View Details</button>
-      </div>
-    </div>
-    <div class="card-body">
-      <h5 class="card-title">{{ vehicle.name }}</h5>
-      <p class="card-text">🚗 Model: {{ vehicle.model }}</p>
-      <p class="card-text">💰 <strong>$ {{ vehicle.price }}/day</strong></p>
-      <button class="btn btn-primary w-100">Book Now</button>
-    </div>
+<div class="card" style="width: 18rem; position: relative;">
+  <!-- Tax Rate Badge (Top Left) -->
+  <div *ngIf="vehicle['defaultTaxRate'] > 0" 
+       style="position: absolute; bottom: 80px; right: 5px; background-color: red; color: white; padding: 5px 10px; font-size: 12px; border-radius: 5px;">
+    {{ vehicle['defaultTaxRate'] }}% Tax
   </div>
-   -->
-<div class="card" style="width: 18rem;">
-  <img class="card-img-top" [src]="'http://localhost:8080/api/blobs/fetch/' + vehicle['imageBlob'].uuid"
-    alt="Vehicle image">
 
+  <!-- Vehicle Image -->
+  <img class="card-img-top" 
+       [src]="'http://localhost:8080/api/blobs/fetch/' + vehicle['imageBlob'].uuid"
+       alt="Vehicle image">
+
+  <!-- Card Body -->
   <div class="card-body">
     <h5 class="card-title">{{ vehicle.name }}</h5>
-    <p class="card-text">{{ vehicle['subCategory'].name }}-{{ vehicle['category'].name }}</p>
-    <p class="card-text">Price: Rs{{ vehicle.price }}</p> <!-- Displaying Price -->
-    <!-- Inside the vehicle-card.component.html -->
-    <a [routerLink]="['/bookingViewPage', vehicle['id']]" class="btn btn-primary">Go Booking</a>
+    <p class="card-text">{{ vehicle['subCategory'].name }} - {{ vehicle['category'].name }}</p>
 
+    <!-- Price Section -->
+    <p *ngIf="vehicle['defaultTaxRate'] <= 0" class="card-text">Price: Rs{{ vehicle.price }}</p>
+    <p *ngIf="vehicle['defaultTaxRate'] > 0" class="card-text">
+      Price: Rs {{ getFinalPrice(vehicle) }}
+    </p>
+
+    <!-- Booking Button -->
+    <a [routerLink]="['/bookingViewPage', vehicle['id']]" class="btn btn-primary">Go Booking</a>
   </div>
 </div>

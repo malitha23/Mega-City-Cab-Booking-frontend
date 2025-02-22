@@ -4,6 +4,7 @@ import { AuthService } from '../../services/AuthService';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { BookingService } from '../../services/BookingService';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-user-profile-page',
@@ -17,6 +18,7 @@ export class UserProfilePageComponent {
   isEditing: boolean = false; // Track edit mode
   selectedFile: File | null = null;
   imageUploadbtn: boolean = false;
+  imageLoadurl: string = '';
 
   pendingBookings: any[] = [];
   approvedBookings: any[] = [];
@@ -162,8 +164,58 @@ export class UserProfilePageComponent {
 
   openModalToShowBookingData(booking: any): void {
     this.selectedBooking = booking;  // Set the selected booking data
+    this.imageLoadurl = environment.imageLoadurl;
   this.visibleselectedbookingModal = true;
    
+  }
+  
+  deleteBooking(bookingId: number) {
+    // Ask the user for confirmation before deleting the booking
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This action cannot be undone.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Proceed with deletion if confirmed
+        this.bookingService.deleteBooking(bookingId).subscribe(
+          (response) => {
+            console.log(response);
+            // Show success notification
+            Swal.fire({
+              title: 'Success!',
+              text: 'Booking deleted successfully.',
+              icon: 'success',
+              confirmButtonText: 'OK',
+            }).then(() => {
+              // Refresh the bookings list after deletion
+              this.getUserBookings();
+            });
+          },
+          (error) => {
+            console.log(error);
+            // Show error notification
+            Swal.fire({
+              title: 'Error!',
+              text: 'There was an error deleting the booking.',
+              icon: 'error',
+              confirmButtonText: 'Try Again',
+            });
+          }
+        );
+      } else {
+        // User canceled the deletion, show a cancellation message if needed
+        Swal.fire({
+          title: 'Cancelled',
+          text: 'The booking was not deleted.',
+          icon: 'info',
+          confirmButtonText: 'OK',
+        });
+      }
+    });
   }
   
   
