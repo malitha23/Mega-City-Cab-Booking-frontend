@@ -7,7 +7,11 @@ import { AuthService } from '../../services/AuthService';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-
+  getRole:string= '';
 
   constructor(public authService: AuthService) { } 
+
+  ngOnInit() {
+    this.getRole = this.authService.getUserData().role;
+  }
 }

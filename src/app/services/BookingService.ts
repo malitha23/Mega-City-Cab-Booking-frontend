@@ -13,6 +13,23 @@ export class BookingService {
 
     constructor(private http: HttpClient) { }
 
+    getAllBookings(): Observable<any[]> {
+        const headers = new HttpHeaders({
+            Authorization: `Bearer ${this.token}`, // Bearer token from localStorage
+        });
+
+        return this.http.get<any[]>(`${this.apiUrl}`, { headers });
+    }
+
+    updateBookingWithDriver(driverData: any): Observable<any> {
+        const headers = new HttpHeaders({
+            Authorization: `Bearer ${this.token}`, // Bearer token from localStorage
+        });
+
+        // Use PUT or POST depending on your backend design. Here we use PUT.
+        return this.http.put(`${this.apiUrl}/assign-driver`, driverData, { headers });
+      }
+
     createBooking(bookingData: any): Observable<any> {
         const headers = new HttpHeaders({
             Authorization: `Bearer ${this.token}`, // Bearer token from localStorage

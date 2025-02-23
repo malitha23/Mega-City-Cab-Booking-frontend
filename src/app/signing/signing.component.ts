@@ -28,14 +28,25 @@ export class SigninComponent {
 
     if (form.valid) {
       if (form.valid) {
-        this.authService.signIn({email: this.email, password:this.password}).subscribe(
+        this.authService.signIn({ email: this.email, password: this.password }).subscribe(
           response => {
             this.authService.saveUserData(response);
             this.responseMessage = response.message;
+            console.log(response);
             this.responseType = 'success';  // Adjust based on response
+            // Role-based redirection
+            const userRole = response.user.role;  // Ensure this correctly extracts the role
+            let redirectUrl = '/userProfile'; // Default for ROLE_USER
+
+            if (userRole === 'ROLE_ADMIN') {
+              redirectUrl = '/admin/Dashboard';
+            } else if (userRole === 'ROLE_MODERATOR') {
+              redirectUrl = '/moderator/Dashboard';
+            }
+
             setTimeout(() => {
-              this.router.navigate(['/userProfile']);
-            }, 2000); 
+              this.router.navigate([redirectUrl]);
+            }, 2000);
           },
           error => {
             this.responseMessage = error.message || 'An error occurred';
@@ -43,7 +54,7 @@ export class SigninComponent {
             setTimeout(() => {
               this.responseMessage = '';
               this.responseType = undefined;
-            }, 3000); 
+            }, 3000);
           }
         );
       } else {
@@ -52,7 +63,7 @@ export class SigninComponent {
         setTimeout(() => {
           this.responseMessage = '';
           this.responseType = undefined;
-        }, 3000); 
+        }, 3000);
       }
     }
   }

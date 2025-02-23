@@ -1,0 +1,235 @@
+<div class="container">
+  <div class="main-body">
+    <div class="row gutters-sm">
+      <!-- Pending Bookings -->
+      <div class="col-sm-4 mb-3">
+        <div class="card h-100">
+          <div class="card-body">
+            <h6 class="d-flex align-items-center mb-3">
+              <i class="material-icons text-info mr-2">pending</i> Bookings
+            </h6>
+            <ul class="list-group">
+              <li *ngIf="pendingBookings.length === 0" class="list-group-item">
+                <span style="font-size: 12px; opacity: 0.7;">No bookings found.</span>
+              </li>
+              <li *ngFor="let booking of pendingBookings" class="list-group-item">
+                <strong (click)="openModalToShowBookingData(booking)">{{ booking.pickUpLocation }} to {{
+                  booking.destination }}</strong><br>
+                <small (click)="openModalToShowBookingData(booking)">{{ booking.bookingDate | date:'yyyy-MM-dd HH:mm:ss'
+                  }}</small>
+                <button
+                  style="background-color: red; color: white; padding: 2px 12px; border: none; float: right; cursor: pointer;"
+                  (click)="deleteBooking(booking.bookingId)">Cancel</button>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Approved Bookings -->
+      <div class="col-sm-4 mb-3">
+        <div class="card h-100">
+          <div class="card-body">
+            <h6 class="d-flex align-items-center mb-3">
+              <i class="material-icons text-success mr-2">Approved</i> Bookings
+            </h6>
+            <ul class="list-group">
+
+              <li *ngIf="approvedBookings.length === 0" class="list-group-item">
+                <span style="font-size: 12px; opacity: 0.7;">No bookings found.</span>
+              </li>
+              <li *ngFor="let booking of approvedBookings" class="list-group-item">
+                <strong (click)="openModalToShowBookingData(booking)">{{ booking.pickUpLocation }} to {{
+                  booking.destination }}</strong><br>
+                <small (click)="openModalToShowBookingData(booking)">{{ booking.bookingDate | date:'yyyy-MM-dd HH:mm:ss'
+                  }}</small>
+                <button
+                  style="background-color: red; color: white; padding: 2px 12px; border: none; float: right; cursor: pointer;"
+                  (click)="deleteBooking(booking.bookingId)">
+                  Delete
+                </button>
+              </li>
+
+
+            </ul>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Rejected Bookings -->
+      <div class="col-sm-4 mb-3">
+        <div class="card h-100">
+          <div class="card-body">
+            <h6 class="d-flex align-items-center mb-3">
+              <i class="material-icons text-danger mr-2">Rejected</i> Bookings
+            </h6>
+            <ul class="list-group">
+              <li *ngIf="rejectedBookings.length === 0" class="list-group-item">
+                <span style="font-size: 12px; opacity: 0.7;">No bookings found.</span>
+              </li>
+              <li *ngFor="let booking of rejectedBookings" class="list-group-item">
+                <strong (click)="openModalToShowBookingData(booking)">{{ booking.pickUpLocation }} to {{
+                  booking.destination }}</strong><br>
+                <small (click)="openModalToShowBookingData(booking)">{{ booking.bookingDate | date:'yyyy-MM-dd HH:mm:ss'
+                  }}</small>
+                <button
+                  style="background-color: red; color: white; padding: 2px 12px; border: none; float: right; cursor: pointer;"
+                  (click)="deleteBooking(booking.bookingId)">Delete</button>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Booking Details Modal -->
+<p-dialog [modal]="true" [(visible)]="visibleselectedbookingModal" [style]="{ width: '60rem' }">
+  <div class="details-container">
+    <!-- Vehicle Details - Left Side -->
+    <div class="vehicle-details">
+      <h4>Vehicle Details:</h4>
+      <ul>
+        <li *ngIf="selectedBooking?.vehicleImageUrl?.uuid"><img
+            [src]="imageLoadurl + selectedBooking?.vehicleImageUrl.uuid"></li>
+        <li *ngIf="selectedBooking?.vehicleName"><strong>Vehicle Name:</strong> {{ selectedBooking?.vehicleName }}</li>
+        <li *ngIf="selectedBooking?.vehicleDescription"><strong>Vehicle Description:</strong> {{
+          selectedBooking?.vehicleDescription }}</li>
+        <li *ngIf="selectedBooking?.vehicleMileage"><strong>Vehicle Mileage:</strong> {{ selectedBooking?.vehicleMileage
+          }}</li>
+        <li *ngIf="selectedBooking?.vehicleFuelType"><strong>Vehicle Fuel Type:</strong> {{
+          selectedBooking?.vehicleFuelType }}</li>
+        <li *ngIf="selectedBooking?.vehicleTransmission"><strong>Vehicle Transmission:</strong> {{
+          selectedBooking?.vehicleTransmission }}</li>
+        <li *ngIf="selectedBooking?.vehicleSeatingCapacity"><strong>Vehicle Seating Capacity:</strong> {{
+          selectedBooking?.vehicleSeatingCapacity }}</li>
+        <li *ngIf="selectedBooking?.vehicleColor"><strong>Vehicle Color:</strong> {{ selectedBooking?.vehicleColor }}
+        </li>
+        <li *ngIf="selectedBooking?.vehicleYearOfManufacture"><strong>Vehicle Year of Manufacture:</strong> {{
+          selectedBooking?.vehicleYearOfManufacture }}</li>
+        <li *ngIf="selectedBooking?.vehicleEngineCapacity"><strong>Vehicle Engine Capacity:</strong> {{
+          selectedBooking?.vehicleEngineCapacity }}</li>
+        <li *ngIf="selectedBooking?.vehicleFuelEfficiency"><strong>Vehicle Fuel Efficiency:</strong> {{
+          selectedBooking?.vehicleFuelEfficiency }}</li>
+        <li *ngIf="selectedBooking?.vehicleLicensePlate"><strong>Vehicle License Plate:</strong> {{
+          selectedBooking?.vehicleLicensePlate }}</li>
+      </ul>
+    </div>
+
+    <!-- Booking Details - Right Side -->
+    <div class="booking-details">
+      <h4>Booking Details:</h4>
+      <ul>
+        <li *ngIf="selectedBooking?.bookingId"><strong>Booking Id:</strong> {{ selectedBooking?.bookingId
+          }}</li>
+        <li *ngIf="selectedBooking?.pickUpLocation"><strong>Pickup Location:</strong> {{ selectedBooking?.pickUpLocation
+          }}</li>
+        <li *ngIf="selectedBooking?.destination"><strong>Destination:</strong> {{ selectedBooking?.destination }}</li>
+        <li *ngIf="selectedBooking?.bookingDate"><strong>Booking Date:</strong> {{ selectedBooking?.bookingDate |
+          date:'yyyy-MM-dd HH:mm:ss' }}</li>
+        <li *ngIf="selectedBooking?.price"><strong>Price:</strong> {{ selectedBooking?.price }}</li>
+        <li *ngIf="selectedBooking?.totalPrice"><strong>Total Price:</strong> {{ selectedBooking?.totalPrice }}</li>
+        <li >
+          <strong>Status:</strong>
+          <span [ngClass]="{
+                'pending-status': selectedBooking?.status == 0, 
+                'approved-status': selectedBooking?.status == 1, 
+                'rejected-status': selectedBooking?.status == 2
+              }">
+            {{ selectedBooking?.status == 0 ? 'Pending..' : selectedBooking?.status == 1 ? 'Approved..' : 'Rejected..'
+            }}
+          </span>
+
+          <button *ngIf="selectedBooking?.status == 0" 
+          style="cursor: pointer; padding: 5px 12px; background-color: green; color: white; margin-left: 10px; border: none;" 
+          (click)="openDriverSelectionModal()">Approve</button>
+
+          <p-dialog [modal]="true" [(visible)]="visibleDriverSelectionModal" [style]="{ width: '50rem', height:'100%' }">
+            <h4>Select Driver</h4>
+            
+            <!-- Driver Grid -->
+            <div *ngIf="drivers.length > 0" class="driver-grid">
+              <div *ngFor="let driver of drivers" class="driver-item"
+                   [class.selected]="selectedDriver?.id === driver.id"
+                   (click)="selectDriver(driver)">
+                <div class="driver-info">
+                  <p><strong>{{ driver.firstName }} {{ driver.lastName }}</strong></p>
+                  <p>Email: {{ driver.email }}</p>
+                  <p>Phone: {{ driver.phoneNumber }}</p>
+                  
+                  <!-- Rating Stars -->
+                  <div class="rating">
+                    <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
+                      <i class="star-icon" 
+                         [class.filled]="driver.rating && driver.rating > i"
+                         >
+                         ★
+                      </i>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+            <!-- No drivers message -->
+            <div *ngIf="drivers?.length === 0">No drivers available.</div>
+          <br>
+            <!-- Assign Driver Button -->
+            <button (click)="assignDriver()" [disabled]="!selectedDriver" style="background-color: yellow; border: none; color: black; padding: 7px 12px;">Assign Driver</button>
+          </p-dialog>
+          
+
+        </li>
+        <li *ngIf="selectedBooking?.driverId"><strong>Driver ID:</strong> {{ selectedBooking?.driverId || 'N/A' }}</li>
+        <li *ngIf="selectedBooking?.nic"><strong>Customer NIC:</strong> {{ selectedBooking?.nic }}</li>
+        <li *ngIf="selectedBooking?.days"><strong>Booking Days:</strong> {{ selectedBooking?.days }}</li>
+        <li *ngIf="selectedBooking?.phone"><strong>Phone:</strong> {{ selectedBooking?.phone }}</li>
+        <li *ngIf="selectedBooking?.address"><strong>Address:</strong> {{ selectedBooking?.address }}</li>
+      </ul>
+
+      <h4
+        *ngIf="selectedBooking?.defaultTaxRate || selectedBooking?.additionalTaxRate || selectedBooking?.defaultTaxDays">
+        Tax Details:</h4>
+      <ul>
+        <li *ngIf="selectedBooking?.defaultTaxRate && selectedBooking?.defaultTaxRate>0"><strong>Default Tax
+            Rate:</strong>
+          {{ selectedBooking?.defaultTaxRate }}% (Rs {{ (selectedBooking?.price/100)*selectedBooking?.defaultTaxRate}})
+          of Rs{{ selectedBooking?.price}} for {{ selectedBooking?.defaultTaxDays }} days
+          = <strong> Rs {{ (((selectedBooking?.price / 100) * selectedBooking?.defaultTaxRate))}} </strong>
+        </li>
+        <li
+          *ngIf="selectedBooking?.additionalTaxRate && selectedBooking?.additionalTaxRate > 0 && selectedBooking?.days > selectedBooking?.defaultTaxDays">
+          <strong>Additional Tax Rate:</strong>
+          {{ selectedBooking?.additionalTaxRate }}% of Rs {{ selectedBooking?.price }}
+          (Rs {{ (selectedBooking?.price / 100) * selectedBooking?.additionalTaxRate }})
+          per day after {{ selectedBooking?.defaultTaxDays }} days =
+          <strong> Rs {{ (((selectedBooking?.price / 100) * selectedBooking?.additionalTaxRate)*(selectedBooking?.days -
+            selectedBooking?.defaultTaxDays))}} </strong>
+          <span *ngIf="selectedBooking?.days">for booking {{ selectedBooking?.days }} days</span>
+        </li>
+        <li><strong>Tax prices: </strong>
+          <strong> Rs {{ (((selectedBooking?.price / 100) * selectedBooking?.defaultTaxRate))}} </strong>+
+          <strong> Rs {{ (((selectedBooking?.price / 100) * selectedBooking?.additionalTaxRate)*(selectedBooking?.days -
+            selectedBooking?.defaultTaxDays))}} </strong>=
+          <strong> Rs {{ (((selectedBooking?.price / 100) * selectedBooking?.defaultTaxRate))+(((selectedBooking?.price
+            / 100) * selectedBooking?.additionalTaxRate)*(selectedBooking?.days -
+            selectedBooking?.defaultTaxDays))}} </strong>
+        </li>
+        <li><strong>Final price: </strong>
+          <strong> Rs {{selectedBooking?.price}} </strong>+
+          <strong> Rs {{ (((selectedBooking?.price / 100) * selectedBooking?.defaultTaxRate))+(((selectedBooking?.price
+            / 100) * selectedBooking?.additionalTaxRate)*(selectedBooking?.days -
+            selectedBooking?.defaultTaxDays))}} </strong>=
+          <strong> Rs {{ (((selectedBooking?.price / 100) * selectedBooking?.defaultTaxRate))+(((selectedBooking?.price
+            / 100) * selectedBooking?.additionalTaxRate)*(selectedBooking?.days -
+            selectedBooking?.defaultTaxDays))+selectedBooking?.price}} </strong>
+        </li>
+      </ul>
+    </div>
+  </div>
+</p-dialog>

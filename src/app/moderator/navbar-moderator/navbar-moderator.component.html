@@ -1,0 +1,23 @@
+<header>
+    <!-- User Authentication Links (Register & Login) -->
+    <ul class="user-auth-links">
+      <!-- Show Register and Login if the user is not logged in -->
+      <li *ngIf="!authService.isLoggedIn()">
+        <a href="/signup" alt="register-button">Register</a>
+      </li>
+      <li *ngIf="!authService.isLoggedIn()">
+        <a href="/signin" alt="login-button"><i class="fas fa-user-alt"></i> Login</a>
+      </li>
+    
+      <!-- Show Profile Icon if the user is logged in -->
+      <li *ngIf="authService.isLoggedIn()">
+        <a href="/moderatorProfile" alt="profile-button"><i class="fas fa-user"></i> Profile</a>
+      </li>
+    </ul>
+    
+    
+    <!-- Contact Information -->
+    <h5>
+      Hi Moderator!
+    </h5>
+  </header>

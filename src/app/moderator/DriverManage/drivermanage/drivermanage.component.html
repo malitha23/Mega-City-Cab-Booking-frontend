@@ -1,0 +1,69 @@
+<div class="driver-list">
+  <h2>Driver List</h2>
+  <div *ngIf="loading">Loading...</div>
+  <ul>
+    <li *ngFor="let driver of drivers">
+      {{ driver.firstName }} {{ driver.lastName }}
+      <button (click)="getDriverDetails(driver.id)">Edit</button>
+      <button (click)="deleteDriver(driver.id)">Delete</button>
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="selectedDriver || driverForm" class="driver-form">
+  <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+    <h2>{{ selectedDriver ? 'Update Driver' : 'Add Driver' }}</h2>
+    <button (click)="resetForm()" style=" color: #fff; padding: 5px 20px; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease;">
+      Reset
+    </button>
+  </div>
+  <br>
+  <form (ngSubmit)="selectedDriver ? updateDriver() : createDriver()">
+
+    <!-- Other form fields -->
+    <label for="firstName">First Name:</label>
+    <input type="text" [(ngModel)]="driverForm.firstName" name="firstName" required>
+
+    <label for="lastName">Last Name:</label>
+    <input type="text" [(ngModel)]="driverForm.lastName" name="lastName" required>
+
+    <label for="email">Email:</label>
+    <input type="email" [(ngModel)]="driverForm.email" name="email" required>
+
+    <label for="phoneNumber">Phone Number:</label>
+    <input type="text" [(ngModel)]="driverForm.phoneNumber" name="phoneNumber" required>
+
+    <label for="address">Address:</label>
+    <input type="text" [(ngModel)]="driverForm.address" name="address">
+
+    <label for="nic">NIC:</label>
+    <input type="text" [(ngModel)]="driverForm.nic" name="nic">
+
+    <label for="licenseNumber">License Number:</label>
+    <input type="text" [(ngModel)]="driverForm.licenseNumber" name="licenseNumber">
+
+    <label for="experienceYears">Experience (Years):</label>
+    <input type="number" [(ngModel)]="driverForm.experienceYears" name="experienceYears">
+
+    <label for="availabilityStatus">Availability Status:</label>
+    <select [(ngModel)]="driverForm.availabilityStatus" name="availabilityStatus">
+      <option value="AVAILABLE">Available</option>
+      <option value="ON_TRIP">On Trip</option>
+      <option value="INACTIVE">Inactive</option>
+    </select>
+
+    <!-- Fields for enabled, isActivated, and joinedDate -->
+
+    <label for="enabled">Enabled:</label>
+    <input type="checkbox" [(ngModel)]="driverForm.enabled" name="enabled">
+
+    <label for="isActivated">Is Activated:</label>
+    <input type="checkbox" [(ngModel)]="driverForm.isActivated" name="isActivated">
+
+    <label for="joinedDate">Joined Date:</label>
+    <input type="datetime-local" [(ngModel)]="driverForm.joinedDate" name="joinedDate">
+
+    <button type="submit">{{ selectedDriver ? 'Update' : 'Create' }} Driver</button>
+  </form>
+
+</div>

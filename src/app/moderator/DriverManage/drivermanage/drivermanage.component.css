@@ -1,0 +1,144 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Container for driver list and form */
+  .driver-list, .driver-form {
+    width: 80%;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  /* Header */
+  h2 {
+    color: #2c3e50;
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* Buttons */
+  button {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #2980b9;
+  }
+  
+  button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+  }
+  
+  /* Loading text */
+  .driver-list .loading {
+    font-size: 18px;
+    color: #e67e22;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  /* Driver List */
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  li {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: #ecf0f1;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+  
+  li:hover {
+    background-color: #dfe6e9;
+  }
+  
+  li button {
+    margin-left: 10px;
+    background-color: #e74c3c;
+  }
+  
+  li button:hover {
+    background-color: #c0392b;
+  }
+  
+  /* Form */
+  .driver-form form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  
+  .driver-form label {
+    font-weight: bold;
+    color: #34495e;
+  }
+  
+  .driver-form input, .driver-form select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .driver-form input[type="checkbox"] {
+    width: auto;
+    margin-right: 10px;
+  }
+  
+  .driver-form button {
+    grid-column: span 2;
+    background-color: #27ae60;
+    font-size: 18px;
+  }
+  
+  .driver-form button:hover {
+    background-color: #2ecc71;
+  }
+  
+  /* Media Queries for Responsiveness */
+  @media (max-width: 768px) {
+    .driver-form form {
+      grid-template-columns: 1fr;
+    }
+  
+    .driver-list, .driver-form {
+      width: 90%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    h2 {
+      font-size: 20px;
+    }
+  
+    .driver-list button {
+      font-size: 14px;
+    }
+  }
+  

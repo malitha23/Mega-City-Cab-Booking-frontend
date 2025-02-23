@@ -33,6 +33,12 @@ import { MessageModule } from 'primeng/message';
 import { DatePipe } from '@angular/common';
 import { UserProfilePageComponent } from './user/user-profile-page/user-profile-page.component';
 import { BookingModalComponent } from './user/booking/booking-modal/booking-modal.component';
+import { ModeratorHomepageComponent } from './moderator/homepage/homepage.component';
+import { NavbarModeratorComponent } from './moderator/navbar-moderator/navbar-moderator.component';
+import { ModeratorProfileComponent } from './moderator/moderator-profile/moderator-profile.component';
+import { DrivermanageComponent } from './moderator/DriverManage/drivermanage/drivermanage.component';
+import { BookingmanageComponent } from './moderator/BookingManage/bookingmanage/bookingmanage.component';
+
 
 
 @NgModule({
@@ -57,7 +63,12 @@ import { BookingModalComponent } from './user/booking/booking-modal/booking-moda
     TimeAgoPipe,
     QuickLoginComponent,
     UserProfilePageComponent,
-    BookingModalComponent
+    BookingModalComponent,
+    NavbarModeratorComponent,
+    ModeratorHomepageComponent,
+    ModeratorProfileComponent,
+    DrivermanageComponent,
+    BookingmanageComponent
   ],
   imports: [
     BrowserModule,

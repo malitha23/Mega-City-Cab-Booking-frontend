@@ -11,7 +11,9 @@
   
     <!-- Show Profile Icon if the user is logged in -->
     <li *ngIf="authService.isLoggedIn()">
-      <a href="/userProfile" alt="profile-button"><i class="fas fa-user"></i> Profile</a>
+      <a *ngIf="getRole == 'ROLE_USER'" href="/userProfile" alt="profile-button"><i class="fas fa-user"></i> Profile</a>
+      <a *ngIf="getRole == 'ROLE_ADMIN'" href="/userProfile" alt="profile-button"><i class="fas fa-user"></i> Profile</a>
+      <a *ngIf="getRole == 'ROLE_MODERATOR'" href="/moderatorProfile" alt="profile-button"><i class="fas fa-user"></i> Profile</a>
     </li>
   </ul>
   
